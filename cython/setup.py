@@ -97,11 +97,10 @@ compiler_directives = {'binding': True, 'cdivision': True}
 
 
 def copy_source(dry_run):
-    dir_util.copy_tree(join('..', 'include'), include_path, dry_run=dry_run)
-    dir_util.copy_tree(join('..', 'extlib', 'eigen', 'Eigen'), eigen_path, dry_run=dry_run)
+    dir_util.copy_tree(join('..', 'include'), include_path)
+    dir_util.copy_tree(join('..', 'extlib', 'eigen', 'Eigen'), eigen_path)
     dir_util.copy_tree(join('..', 'extlib', 'mimalloc', 'include'),
-                       mimalloc_include_path,
-                       dry_run=dry_run)
+                       mimalloc_include_path)
     dir_util.mkpath(src_path)
     dir_util.mkpath(mimalloc_src_path)
     for path in (join('..', 'src'), join('..', 'extlib', 'mimalloc', 'src')):
@@ -113,9 +112,9 @@ def copy_source(dry_run):
                 f_new = f.replace('..', m_path)
                 if not isdir(dirname(f_new)):
                     dir_util.mkpath(dirname(f_new))
-                file_util.copy_file(f, f_new, dry_run=dry_run)
+                file_util.copy_file(f, f_new)
     for f in sources[1:] + mimalloc_sources:
-        file_util.copy_file(f.replace(m_path, '..'), f, dry_run=dry_run)
+        file_util.copy_file(f.replace(m_path, '..'), f)
     # Create an empty header
     open(join(platform_path, 'config.h'), 'a').close()
 
@@ -155,9 +154,9 @@ class Build(build_ext):
                                         output_dir=build_dir)
         super(Build, self).build_extensions()
         if not has_src:
-            dir_util.remove_tree(include_path, dry_run=self.dry_run)
-            dir_util.remove_tree(src_path, dry_run=self.dry_run)
-            dir_util.remove_tree(extlib_path, dry_run=self.dry_run)
+            dir_util.remove_tree(include_path)
+            dir_util.remove_tree(src_path)
+            dir_util.remove_tree(extlib_path)
 
 
 class PackSource(sdist):
@@ -166,9 +165,9 @@ class PackSource(sdist):
         copy_source(self.dry_run)
         super(PackSource, self).run()
         if not self.keep_temp:
-            dir_util.remove_tree(include_path, dry_run=self.dry_run)
-            dir_util.remove_tree(src_path, dry_run=self.dry_run)
-            dir_util.remove_tree(extlib_path, dry_run=self.dry_run)
+            dir_util.remove_tree(include_path)
+            dir_util.remove_tree(src_path)
+            dir_util.remove_tree(extlib_path)
 
 
 setup(ext_modules=[Extension(
