@@ -1,3 +1,8 @@
 [build-system]
-requires = ["wheel", "setuptools"]
+requires = ["setuptools>=42", "wheel", "cython"]
 build-backend = "setuptools.build_meta"
+
+[tool.cibuildwheel]
+build = "cp311-*"
+skip = "*-manylinux_i686 *-musllinux_* *-win32 pp*"
+test-command = "python -c \"import python_solvespace\""

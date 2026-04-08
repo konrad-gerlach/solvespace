@@ -48,7 +48,21 @@ sys_new = sys.copy()
 
 The entity and parameter handles should have the same lifetime to the solver.
 
-# Install
+# Install Into Blender 4.3
+
+For Blender 4.3 (which ships with Python 3.11), you can install `python-solvespace` by downloading the precompiled wheel from the GitHub Actions releases and using Blender's embedded Python. No local compilation or system tools are required.
+
+1. Download the `.whl` file for your platform from the [GitHub Releases](https://github.com/KmolYuan/solvespace/releases).
+2. Install it directly into Blender's python environment by running the following command in your terminal or command prompt:
+
+```bash
+/path/to/blender/4.3/python/bin/python3.11 -m pip install /path/to/downloaded/python_solvespace-*.whl
+```
+*(Note: Adjust the paths to your local Blender installation and the downloaded wheel)*
+
+Once installed, there is no compilation step and you can import `python_solvespace` perfectly inside your Blender Add-on.
+
+# General Install
 
 ```bash
 pip install python-solvespace
